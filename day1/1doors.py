@@ -40,14 +40,8 @@ key[2]=6 =>  key[6]=3  =>  key[3]=2
 
 You can unlock maximum 3 rooms.
 
-Sample Input-3:
----------------
-5
-0 1 2 3 4
 
-Sample Output-3:
-----------------
-1
+
 Sample Input-2:
 ---------------
 6
@@ -62,33 +56,16 @@ Write your Python code below
 '''
 n = int(input())
 doors = list(map(int, input().split()))
-parent = [i for i in range(n)]
 
-def find(x):
-    if parent[x] != x:
-        parent[x] = find(parent[x])
-    return parent[x]
+vis = [False] * n
+res = 0
 
-def union(x, y):
-    p1 = find(x)
-    p2 = find(y)
-    if p1 != p2:
-        parent[p1] = p2
-
-
+def dfs(root):
+    if vis[root]: return 0
+    vis[root] = True
+    return 1+dfs(doors[root])
+    
 for i in range(len(doors)):
-    union(doors[i], i)
-
-ans = 0
-map = {}
-
-for i in parent:
-    if i not in map:
-        map[i] = 1
-    else:
-        map[i] += 1
-
-for i in map:
-    ans = max(ans, map[i])
-
-print(ans)
+    if not vis[i]:
+        res = max(res,dfs(i))
+print(res)
