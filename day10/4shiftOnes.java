@@ -44,3 +44,37 @@
 // Sample Output-2:
 // ================
 // 11 8 5 4 3 4
+
+import java.util.*;
+
+class Test {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        int n = s.length();
+        int sum = 0;
+        int rc = 0;
+        for (int i = 0; i < n; i++) {
+            if (s.charAt(i) == '1') {
+                rc++;
+                sum += i;
+            }
+        }
+        int lc = 0;
+        if (s.charAt(0) == '1') {
+            rc--;
+            lc++;
+        }
+        System.out.print(sum + " ");
+        for (int i = 1; i < n; i++) {
+            sum -= rc;
+            sum += lc;
+            if (s.charAt(i) == '1') {
+                lc++;
+                rc--;
+            }
+            System.out.print(sum + " ");
+        }
+        sc.close();
+    }
+}
